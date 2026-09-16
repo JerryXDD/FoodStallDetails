@@ -91,6 +91,18 @@
     </script>
   </head>
   <body>
+    <!-- Hidden form for Netlify detection (React renders client-side, Netlify needs static HTML) -->
+    <form name="food-stall-details" data-netlify="true" hidden>
+      <input type="hidden" name="form-name" value="food-stall-details" />
+      <input type="text" name="name" />
+      <input type="tel" name="phone" />
+      <input type="radio" name="category" value="Appetizer" />
+      <input type="radio" name="category" value="Dessert" />
+      <input type="text" name="item1" />
+      <input type="text" name="item2" />
+      <input type="text" name="item3" />
+      <input type="number" name="serving" />
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
