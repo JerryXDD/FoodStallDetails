@@ -2,20 +2,43 @@ import { useState } from "react";
 
 export default function App() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+
+  const encode = (data: Record<string, string>) => {
+    return Object.keys(data)
+      .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+      .join("&");
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
     const form = e.currentTarget;
     const formData = new FormData(form);
 
-    // Submit to Netlify
+    // Build the data object manually to ensure form-name is included
+    const data: Record<string, string> = {
+      "form-name": "food-stall-details",
+    };
+    formData.forEach((value, key) => {
+      data[key] = value.toString();
+    });
+
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData as any).toString(),
+      body: encode(data),
     })
-      .then(() => setSubmitted(true))
-      .catch((error) => console.error("Form submission error:", error));
+      .then((response) => {
+        if (response.ok) {
+          setSubmitted(true);
+        } else {
+          setError("Submission failed. Please try again.");
+        }
+      })
+      .catch(() => {
+        setError("Network error. Please check your connection and try again.");
+      });
   };
 
   if (submitted) {
@@ -206,6 +229,13 @@ export default function App() {
               </div>
             </div>
           </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+              {error}
+            </div>
+          )}
 
           {/* Submit Button */}
           <button
