@@ -207,10 +207,13 @@ export default function App() {
             />
           </div>
 
-          {/* Serving Quantity */}
+          {/* Serving Quantity / Approx Items */}
           <div>
             <label htmlFor="serving" className="block text-sm font-semibold text-gray-700 mb-1">
-              Serving Quantity (No. of People) <span className="text-red-500">*</span>
+              {stallType === "Entrepreneur"
+                ? "Approx. Quantity of Items You Will Make"
+                : "Serving Quantity (No. of People)"}{" "}
+              <span className="text-red-500">*</span>
             </label>
             <input
               type="number"
@@ -218,7 +221,11 @@ export default function App() {
               name="serving"
               required
               min="1"
-              placeholder="e.g. 50"
+              placeholder={
+                stallType === "Entrepreneur"
+                  ? "e.g. 20"
+                  : "e.g. 50"
+              }
               className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none transition-all"
             />
           </div>
