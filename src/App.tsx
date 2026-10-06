@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function App() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [stallType, setStallType] = useState<string>("");
 
   const encode = (data: Record<string, string>) => {
     return Object.keys(data)
@@ -122,14 +123,28 @@ export default function App() {
             </label>
             <div className="flex gap-4">
               <label className="flex-1 cursor-pointer">
-                <input type="radio" name="stall_type" value="Food" required className="peer sr-only" />
+                <input
+                  type="radio"
+                  name="stall_type"
+                  value="Food"
+                  required
+                  className="peer sr-only"
+                  onChange={(e) => setStallType(e.target.value)}
+                />
                 <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
                   <span className="text-2xl">🍳</span>
                   <p className="text-sm font-medium text-gray-700 mt-1">Food</p>
                 </div>
               </label>
               <label className="flex-1 cursor-pointer">
-                <input type="radio" name="stall_type" value="Entrepreneur" required className="peer sr-only" />
+                <input
+                  type="radio"
+                  name="stall_type"
+                  value="Entrepreneur"
+                  required
+                  className="peer sr-only"
+                  onChange={(e) => setStallType(e.target.value)}
+                />
                 <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
                   <span className="text-2xl">💼</span>
                   <p className="text-sm font-medium text-gray-700 mt-1">Entrepreneur</p>
@@ -138,47 +153,56 @@ export default function App() {
             </div>
           </div>
 
-          {/* Category: Snack / Dessert / Beverages */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              What do you want to make? <span className="text-red-500">*</span>
-            </label>
-            <div className="flex gap-3">
-              <label className="flex-1 cursor-pointer">
-                <input type="radio" name="category" value="Snack" required className="peer sr-only" />
-                <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
-                  <span className="text-2xl">🍿</span>
-                  <p className="text-sm font-medium text-gray-700 mt-1">Snack</p>
-                </div>
+          {/* Category: Snack / Dessert / Beverages — only shown for Food stalls */}
+          {stallType === "Food" && (
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                What do you want to make? <span className="text-red-500">*</span>
               </label>
-              <label className="flex-1 cursor-pointer">
-                <input type="radio" name="category" value="Dessert" required className="peer sr-only" />
-                <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
-                  <span className="text-2xl">🍰</span>
-                  <p className="text-sm font-medium text-gray-700 mt-1">Dessert</p>
-                </div>
-              </label>
-              <label className="flex-1 cursor-pointer">
-                <input type="radio" name="category" value="Beverages" required className="peer sr-only" />
-                <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
-                  <span className="text-2xl">☕</span>
-                  <p className="text-sm font-medium text-gray-700 mt-1">Beverages</p>
-                </div>
-              </label>
+              <div className="flex gap-3">
+                <label className="flex-1 cursor-pointer">
+                  <input type="radio" name="category" value="Snack" required className="peer sr-only" />
+                  <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
+                    <span className="text-2xl">🍿</span>
+                    <p className="text-sm font-medium text-gray-700 mt-1">Snack</p>
+                  </div>
+                </label>
+                <label className="flex-1 cursor-pointer">
+                  <input type="radio" name="category" value="Dessert" required className="peer sr-only" />
+                  <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
+                    <span className="text-2xl">🍰</span>
+                    <p className="text-sm font-medium text-gray-700 mt-1">Dessert</p>
+                  </div>
+                </label>
+                <label className="flex-1 cursor-pointer">
+                  <input type="radio" name="category" value="Beverages" required className="peer sr-only" />
+                  <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
+                    <span className="text-2xl">☕</span>
+                    <p className="text-sm font-medium text-gray-700 mt-1">Beverages</p>
+                  </div>
+                </label>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Single Item */}
           <div>
             <label htmlFor="item" className="block text-sm font-semibold text-gray-700 mb-1">
-              What item will you make? <span className="text-red-500">*</span>
+              {stallType === "Entrepreneur"
+                ? "What are you selling?"
+                : "What item will you make?"}{" "}
+              <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               id="item"
               name="item"
               required
-              placeholder="e.g. Samosa, Brownie, Chai..."
+              placeholder={
+                stallType === "Entrepreneur"
+                  ? "e.g. Handmade jewelry, Toys, Books..."
+                  : "e.g. Samosa, Brownie, Chai..."
+              }
               className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none transition-all"
             />
           </div>
