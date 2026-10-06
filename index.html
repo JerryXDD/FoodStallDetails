@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Food Stall Details</title>
+    <title>Stall Details</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -92,16 +92,19 @@
   </head>
   <body>
     <!-- Hidden form for Netlify detection (React renders client-side, Netlify needs static HTML) -->
-    <form name="food-stall-details" data-netlify="true" hidden>
-      <input type="hidden" name="form-name" value="food-stall-details" />
+    <form name="stall-details" data-netlify="true" hidden>
+      <input type="hidden" name="form-name" value="stall-details" />
       <input type="text" name="name" />
       <input type="tel" name="phone" />
-      <input type="radio" name="category" value="Appetizer" />
+      <input type="radio" name="stall_type" value="Food" />
+      <input type="radio" name="stall_type" value="Entrepreneur" />
+      <input type="radio" name="category" value="Snack" />
       <input type="radio" name="category" value="Dessert" />
-      <input type="text" name="item1" />
-      <input type="text" name="item2" />
-      <input type="text" name="item3" />
+      <input type="radio" name="category" value="Beverages" />
+      <input type="text" name="item" />
       <input type="number" name="serving" />
+      <input type="radio" name="managed_by" value="Child" />
+      <input type="radio" name="managed_by" value="Adult" />
     </form>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

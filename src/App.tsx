@@ -16,9 +16,8 @@ export default function App() {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
-    // Build the data object manually to ensure form-name is included
     const data: Record<string, string> = {
-      "form-name": "food-stall-details",
+      "form-name": "stall-details",
     };
     formData.forEach((value, key) => {
       data[key] = value.toString();
@@ -46,11 +45,9 @@ export default function App() {
       <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
           <div className="text-6xl mb-4">🎉</div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
-            Thank You!
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Thank You!</h2>
           <p className="text-gray-600">
-            Your food stall details have been submitted successfully. We'll be in touch soon!
+            Your stall details have been submitted successfully. We'll be in touch soon!
           </p>
           <button
             onClick={() => setSubmitted(false)}
@@ -68,32 +65,29 @@ export default function App() {
       <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 max-w-lg w-full">
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="text-5xl mb-3">🍽️</div>
+          <div className="text-5xl mb-3">🏪</div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-            Food Stall Details
+            Stall Details
           </h1>
           <p className="text-gray-500 mt-2 text-sm">
-            Fill in the details below to register your food stall
+            Fill in the details below to register your stall
           </p>
         </div>
 
         {/* Form */}
         <form
-          name="food-stall-details"
+          name="stall-details"
           method="POST"
           data-netlify="true"
           onSubmit={handleSubmit}
           className="space-y-5"
         >
           {/* Hidden field for Netlify */}
-          <input type="hidden" name="form-name" value="food-stall-details" />
+          <input type="hidden" name="form-name" value="stall-details" />
 
           {/* Name */}
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-semibold text-gray-700 mb-1"
-            >
+            <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1">
               Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -108,10 +102,7 @@ export default function App() {
 
           {/* Phone/WhatsApp */}
           <div>
-            <label
-              htmlFor="phone"
-              className="block text-sm font-semibold text-gray-700 mb-1"
-            >
+            <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-1">
               Phone / WhatsApp No. <span className="text-red-500">*</span>
             </label>
             <input
@@ -124,84 +115,78 @@ export default function App() {
             />
           </div>
 
-          {/* Appetizer or Dessert */}
+          {/* Food or Entrepreneur */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Do you want to make an Appetizer or Dessert?{" "}
-              <span className="text-red-500">*</span>
+              Is it Food or Entrepreneur? <span className="text-red-500">*</span>
             </label>
             <div className="flex gap-4">
               <label className="flex-1 cursor-pointer">
-                <input
-                  type="radio"
-                  name="category"
-                  value="Appetizer"
-                  required
-                  className="peer sr-only"
-                />
+                <input type="radio" name="stall_type" value="Food" required className="peer sr-only" />
                 <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
-                  <span className="text-2xl">🥘</span>
-                  <p className="text-sm font-medium text-gray-700 mt-1">
-                    Appetizer
-                  </p>
+                  <span className="text-2xl">🍳</span>
+                  <p className="text-sm font-medium text-gray-700 mt-1">Food</p>
                 </div>
               </label>
               <label className="flex-1 cursor-pointer">
-                <input
-                  type="radio"
-                  name="category"
-                  value="Dessert"
-                  required
-                  className="peer sr-only"
-                />
+                <input type="radio" name="stall_type" value="Entrepreneur" required className="peer sr-only" />
                 <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
-                  <span className="text-2xl">🍰</span>
-                  <p className="text-sm font-medium text-gray-700 mt-1">
-                    Dessert
-                  </p>
+                  <span className="text-2xl">💼</span>
+                  <p className="text-sm font-medium text-gray-700 mt-1">Entrepreneur</p>
                 </div>
               </label>
             </div>
           </div>
 
-          {/* 3 Items */}
+          {/* Category: Snack / Dessert / Beverages */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              3 Items That You Can Make <span className="text-red-500">*</span>
+              What do you want to make? <span className="text-red-500">*</span>
             </label>
-            <div className="space-y-2">
-              <input
-                type="text"
-                name="item1"
-                required
-                placeholder="Item 1"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none transition-all"
-              />
-              <input
-                type="text"
-                name="item2"
-                required
-                placeholder="Item 2"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none transition-all"
-              />
-              <input
-                type="text"
-                name="item3"
-                required
-                placeholder="Item 3"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none transition-all"
-              />
+            <div className="flex gap-3">
+              <label className="flex-1 cursor-pointer">
+                <input type="radio" name="category" value="Snack" required className="peer sr-only" />
+                <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
+                  <span className="text-2xl">🍿</span>
+                  <p className="text-sm font-medium text-gray-700 mt-1">Snack</p>
+                </div>
+              </label>
+              <label className="flex-1 cursor-pointer">
+                <input type="radio" name="category" value="Dessert" required className="peer sr-only" />
+                <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
+                  <span className="text-2xl">🍰</span>
+                  <p className="text-sm font-medium text-gray-700 mt-1">Dessert</p>
+                </div>
+              </label>
+              <label className="flex-1 cursor-pointer">
+                <input type="radio" name="category" value="Beverages" required className="peer sr-only" />
+                <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
+                  <span className="text-2xl">☕</span>
+                  <p className="text-sm font-medium text-gray-700 mt-1">Beverages</p>
+                </div>
+              </label>
             </div>
+          </div>
+
+          {/* Single Item */}
+          <div>
+            <label htmlFor="item" className="block text-sm font-semibold text-gray-700 mb-1">
+              What item will you make? <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="item"
+              name="item"
+              required
+              placeholder="e.g. Samosa, Brownie, Chai..."
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none transition-all"
+            />
           </div>
 
           {/* Serving Quantity */}
           <div>
-            <label
-              htmlFor="serving"
-              className="block text-sm font-semibold text-gray-700 mb-1"
-            >
-              Serving Quantity (No. of People){" "}
-              <span className="text-red-500">*</span>
+            <label htmlFor="serving" className="block text-sm font-semibold text-gray-700 mb-1">
+              Serving Quantity (No. of People) <span className="text-red-500">*</span>
             </label>
             <input
               type="number"
@@ -214,17 +199,40 @@ export default function App() {
             />
           </div>
 
+          {/* Managed by Child or Adult */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Is the stall managed by a Child or Adult? <span className="text-red-500">*</span>
+            </label>
+            <div className="flex gap-4">
+              <label className="flex-1 cursor-pointer">
+                <input type="radio" name="managed_by" value="Child" required className="peer sr-only" />
+                <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
+                  <span className="text-2xl">🧒</span>
+                  <p className="text-sm font-medium text-gray-700 mt-1">Child</p>
+                </div>
+              </label>
+              <label className="flex-1 cursor-pointer">
+                <input type="radio" name="managed_by" value="Adult" required className="peer sr-only" />
+                <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
+                  <span className="text-2xl">🧑</span>
+                  <p className="text-sm font-medium text-gray-700 mt-1">Adult</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
           {/* Drinks & Tea Note */}
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
             <div className="flex items-start gap-3">
-              <span className="text-2xl">☕</span>
+              <span className="text-2xl">🥤</span>
               <div>
                 <p className="text-sm font-semibold text-amber-800">
                   Drinks & Tea Welcome!
                 </p>
                 <p className="text-xs text-amber-700 mt-1">
                   You can also sell drinks, tea, and other beverages at your
-                  stall. Feel free to include them in your items above!
+                  stall. Feel free to include them as your item!
                 </p>
               </div>
             </div>
