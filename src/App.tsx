@@ -147,7 +147,7 @@ export default function App() {
                 />
                 <div className="border-2 border-gray-200 rounded-lg p-3 text-center peer-checked:border-orange-500 peer-checked:bg-orange-50 transition-all hover:border-gray-300">
                   <span className="text-2xl">💼</span>
-                  <p className="text-sm font-medium text-gray-700 mt-1">Entrepreneur</p>
+                  <p className="text-sm font-medium text-gray-700 mt-1">Entrepreneurial</p>
                 </div>
               </label>
             </div>
@@ -233,7 +233,7 @@ export default function App() {
           {/* Managed by Child or Adult */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Is the stall managed by a Child or Adult? <span className="text-red-500">*</span>
+              Will the stall managed by a Child or Adult? <span className="text-red-500">*</span>
             </label>
             <div className="flex gap-4">
               <label className="flex-1 cursor-pointer">
